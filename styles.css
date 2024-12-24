@@ -416,4 +416,11 @@ p {
   .winner-container p {
     font-size: 4rem;
   }
+   .winner-shadow {
+    box-shadow:
+      0 0 0 50px rgba(252, 247, 247, 0.025),
+      0 0 0 100px rgba(255, 240, 240, 0.025),
+      0 0 0 150px rgba(217, 217, 217, 0.025);
+    z-index: -5;
+  }
 }
