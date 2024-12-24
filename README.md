@@ -28,8 +28,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/erntTt94/Rock-Paper-Scissors-Game](https://github.com/erntTt94/Rock-Paper-Scissors-Game)
+- Live Site URL: [https://ernttt94.github.io/Rock-Paper-Scissors-Game/](https://ernttt94.github.io/Rock-Paper-Scissors-Game/)
 
 ## My process
 
