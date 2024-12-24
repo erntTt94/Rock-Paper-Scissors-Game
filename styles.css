@@ -1,0 +1,419 @@
+:root {
+  --dark-text: hsl(229, 25%, 31%);
+  --score-text: hsl(229, 64%, 46%);
+  --header-outline: hsl(217, 16%, 45%);
+  --fw-600: 600;
+  --fw-700: 700;
+}
+
+/* reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* container style */
+body {
+  background: linear-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rules-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.rules-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rules-container p {
+  font-size: 1.7rem;
+  color: var(--dark-text);
+  font-weight: var(--fw-700);
+  opacity: 1;
+  letter-spacing: normal;
+}
+
+.rules-btn {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  padding: 10px 37px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  border: 2px solid white;
+  background: none;
+  color: white;
+  font-size: 0.9rem;
+  letter-spacing: 0.2rem;
+  font-weight: var(--fw-600);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.close-icon {
+  width: 20px;
+  height: 3px;
+  background-color: grey;
+  margin: 5px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.first-line {
+  transform: rotate(45deg) translateX(5px);
+}
+
+.second-line {
+  transform: rotate(-45deg) translate(6px);
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  width: 800px;
+  transition: all 0.7s;
+}
+
+.result-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid var(--header-outline);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  place-self: center;
+  width: 100%;
+}
+
+.score {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 3rem;
+  text-align: center;
+}
+
+span {
+  display: block;
+  font-size: 3.5rem;
+  color: var(--dark-text);
+}
+
+p {
+  text-transform: uppercase;
+  color: var(--score-text);
+  font-weight: var(--fw-700);
+  letter-spacing: 0.1rem;
+  opacity: 0.8;
+}
+
+.game {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  place-self: center;
+  background: url(images/bg-triangle.svg) no-repeat;
+  background-position: center;
+  background-size: 75%;
+  height: 30rem;
+}
+
+.circle {
+  position: relative;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s ease-in;
+}
+
+.circle::before {
+  content: '';
+  position: absolute;
+  width: 8.5rem;
+  height: 8.5rem;
+  background: white;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.circle>img {
+  position: absolute;
+  width: 35%;
+  height: auto;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.blue {
+  background: hsl(230, 89%, 65%);
+  box-shadow: 0 10px 1px hsla(230, 89%, 62%, 0.808);
+}
+
+.blue::before {
+  box-shadow: inset 0 9px 3px hsla(0, 0%, 30%, 0.288);
+}
+
+.yellow {
+  background: hsl(40, 84%, 53%);
+  box-shadow: 0 10px 1px hsla(39, 89%, 49%, 0.808);
+}
+
+.yellow::before {
+  box-shadow: inset 0 9px 3px hsla(0, 0%, 30%, 0.288);
+}
+
+.red {
+  background: hsl(349, 71%, 52%);
+  box-shadow: 0 10px 1px hsl(349, 70%, 56%, 0.808);
+}
+
+.red::before {
+  box-shadow: inset 0 9px 3px hsla(0, 0%, 30%, 0.288);
+}
+
+.bottom-circle {
+  position: relative;
+  bottom: -50%;
+}
+
+/* interactive elements */
+/* change the style from three elements to two elements */
+.game-started {
+  background: none;
+  width: 100%;
+  justify-content: space-between;
+  height: 40vh;
+}
+
+/* adding the pulsating shadow to the computer-choice */
+.empty-shadow {
+  position: absolute;
+  right: -3rem;
+  top: -2.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 18rem;
+  height: 18rem;
+  background-color: black;
+  visibility: hidden;
+  transition: opacity 0.8s ease;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+}
+
+/* winner shadow */
+.winner-shadow {
+  box-shadow:
+    0 0 0 50px rgba(252, 247, 247, 0.025),
+    0 0 0 100px rgba(255, 240, 240, 0.025),
+    0 0 0 150px rgba(217, 217, 217, 0.025);
+  z-index: -5;
+}
+
+/* text for your picks and computer picks */
+.select-text {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 0.7rem;
+  place-self: center;
+  margin-bottom: 2rem;
+}
+
+.select-text>p {
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  color: whitesmoke;
+}
+
+.select-text>p:nth-of-type(2) {
+  transform: translateX(20px);
+}
+
+/* style for win or lose elements */
+.winner-container {
+  order: 2;
+  text-align: center;
+}
+
+.winner-container p {
+  font-size: 3.5rem;
+  color: white;
+  text-transform: uppercase;
+  font-weight: var(--fw-700);
+  margin-bottom: 0.5rem;
+}
+
+.winner-container button {
+  padding: 1.2rem 4rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 0.1rem;
+  font-weight: var(--fw-600);
+  color: var(--dark-text);
+}
+
+/*non clickable  */
+.not-clickable {
+  pointer-events: none;
+}
+
+
+.player-choice {
+  order: 1;
+  transform: scale(1.5);
+}
+
+.computer-choice {
+  order: 3;
+  transform: scale(1.5);
+}
+
+/* hide elements */
+.hidden {
+  display: none;
+}
+
+
+@media (max-width:900px) {
+  html {
+    font-size: 11px;
+  }
+
+  body {
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100vh;
+    padding: 2rem 0;
+  }
+
+  .rules-btn {
+    position: static;
+    font-size: 1.2rem;
+  }
+
+  .game-container {
+    width: 350px;
+    gap: 3rem;
+  }
+
+  .result-container img {
+    width: 80px;
+    height: auto;
+  }
+
+  .score {
+    padding: 0.5rem 2rem;
+  }
+
+  .game {
+    background-size: 70%;
+    margin-top: 2rem;
+  }
+
+  .blue {
+    box-shadow: 0 6px 1px hsla(230, 89%, 62%, 0.808);
+  }
+
+  .red {
+    box-shadow: 0 6px 1px hsl(349, 70%, 56%, 0.808);
+  }
+
+  .yellow {
+    box-shadow: 0 6px 1px hsla(39, 89%, 49%, 0.808)
+  }
+
+  .game-started {
+    width: 100%;
+    height: 16vh;
+    flex-wrap: wrap;
+  }
+
+  .empty-shadow {
+    width: 13rem;
+    height: 13rem;
+    right: -10px;
+    top: 0;
+  }
+
+  .select-text {
+    order: 3;
+    padding-left: 1rem;
+    justify-content: space-between;
+  }
+
+  .select-text p:nth-of-type(2) {
+    transform: translateX(14px);
+  }
+
+  .computer-choice {
+    transform: scale(1);
+  }
+
+  .player-choice {
+    transform: scale(1);
+  }
+
+  .winner-container {
+    position: fixed;
+    bottom: 30%;
+    right: 0;
+    left: 0;
+  }
+
+  .winner-container p {
+    font-size: 4rem;
+  }
+}
